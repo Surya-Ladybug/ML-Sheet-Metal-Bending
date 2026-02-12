@@ -394,7 +394,7 @@ if st.session_state.computed and 'results' in st.session_state:
     fig_curves = viz.plot_bending_curves(
         r['target_angle'], r['overbend_angle'], r['predicted_final']
     )
-    st.plotly_chart(fig_curves, use_conatiner_width=True)
+    st.plotly_chart(fig_curves, use_container_width=True)
     
     st.markdown("---")
     
