@@ -188,7 +188,7 @@ if not st.session_state.computed:
         image_path = os.path.join(current_dir, 'assets', 'rx_direction.png')
         if os.path.exists(image_path):
             img = Image.open(image_path)
-            st.image(img, caption="RX Direction: Negative values move the tool to the right", use_container_width=True)
+            st.image(img, caption="RX Direction: Negative values move the tool to the right", use_column_width=True)
         else:
             st.warning("RX direction image not found. Please ensure rx_direction.png is in ui/assets/")
     except Exception as e:
@@ -263,7 +263,7 @@ with col3:
     compute_btn = st.button(
         "🚀 Compute Bending Solution",
         type="primary",
-        use_container_width=True
+        use_column_width=True
     )
 
 
@@ -394,7 +394,7 @@ if st.session_state.computed and 'results' in st.session_state:
     fig_curves = viz.plot_bending_curves(
         r['target_angle'], r['overbend_angle'], r['predicted_final']
     )
-    st.plotly_chart(fig_curves, use_container_width=True)
+    st.plotly_chart(fig_curves, use_column_width=True)
     
     st.markdown("---")
     
@@ -402,7 +402,7 @@ if st.session_state.computed and 'results' in st.session_state:
     fig_angles = viz.plot_angle_comparison(
         r['target_angle'], r['overbend_angle'], r['predicted_final'], r['Ks']
     )
-    st.plotly_chart(fig_angles, use_container_width=True)
+    st.plotly_chart(fig_angles, use_column_width=True)
     
     # ========================================================================
     # TOOLPATH GENERATION
@@ -439,7 +439,7 @@ if st.session_state.computed and 'results' in st.session_state:
             'Target Angle (°)': '{:.2f}',
             'Overbend (°)': '{:.2f}'
         }),
-        use_container_width=True,
+        use_column_width=True,
         height=300
     )
     
@@ -459,7 +459,7 @@ if st.session_state.computed and 'results' in st.session_state:
             csv_toolpath,
             file_name=f"toolpath_rx{r['rx_value']}_angle{r['target_angle']}.csv",
             mime="text/csv",
-            use_container_width=True
+            use_column_width=True
         )
     
     with col_exp2:
@@ -473,7 +473,7 @@ if st.session_state.computed and 'results' in st.session_state:
             summary,
             file_name=f"summary_rx{r['rx_value']}_angle{r['target_angle']}.txt",
             mime="text/plain",
-            use_container_width=True
+            use_column_width=True
         )
     
     # ========================================================================
@@ -506,7 +506,7 @@ if st.session_state.computed and 'results' in st.session_state:
     """)
     
     # Reset button
-    if st.button("🔄 New Calculation", use_container_width=True):
+    if st.button("🔄 New Calculation", use_column_width=True):
         st.session_state.computed = False
         st.rerun()
 
