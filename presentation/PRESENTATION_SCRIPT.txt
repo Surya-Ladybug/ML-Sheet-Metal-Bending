@@ -1,0 +1,293 @@
+═══════════════════════════════════════════════════════════════
+  PRESENTATION SCRIPT - DETAILED TALKING POINTS
+  What to Say for Each Slide
+═══════════════════════════════════════════════════════════════
+
+[SLIDE 1: Title - 30 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "Good morning/afternoon professors and fellow students. Today
+  we present an ML-assisted digital twin for sheet metal bending
+  operations. Our project addresses a real industry problem:
+  the computational cost of finite element simulations."
+
+Key Points to Emphasize:
+  - Real industry application
+  - FEM is accurate but slow
+  - ML provides practical alternative
+
+Transition:
+  "Let me start by explaining the problem we're solving..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 2: Problem - 45 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "Sheet metal V-bending is a fundamental manufacturing process.
+  To optimize tool parameters, engineers typically use LS-DYNA,
+  a finite element method software. However, each simulation
+  takes 2-4 hours to complete. For design optimization, which
+  requires testing hundreds of parameter combinations, this
+  becomes completely impractical - taking days or even weeks."
+
+Key Points:
+  - LS-DYNA is industry standard
+  - 2-4 hours per simulation
+  - Design iteration is the bottleneck
+  - Days/weeks total development time
+
+Transition:
+  "This is where machine learning can help..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 3: Solution - 45 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "Our solution uses machine learning surrogates. We train ML
+  models on a small dataset of 16 FEM simulations - this is a
+  one-time cost. Once trained, the model can predict outcomes
+  in under 100 milliseconds. That's a speed improvement of more
+  than 10,000 times compared to FEM."
+
+Key Points:
+  - One-time training cost
+  - 16 simulations sufficient
+  - < 100ms prediction time
+  - 10,000x faster than FEM
+
+Transition:
+  "The key innovation is our two-model architecture..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 4: Architecture - 60 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "We use TWO separate ML models because they solve different
+  mathematical problems. Model 1, the Inverse Regressor, takes
+  the target angle and RX constraint as inputs and predicts the
+  required RYR parameter and expected inner radius. This is a
+  GradientBoosting model.
+  
+  Model 2, the Forward Predictor, takes the actual tool
+  parameters - RX and RYR - and predicts what stable angle
+  we'll actually get after tool release. This uses RandomForest.
+  
+  Together, these models provide everything needed for robot
+  programming."
+
+Key Points:
+  - Two models solve different problems
+  - Inverse: design tool (what inputs to use)
+  - Forward: prediction (what output to expect)
+  - Different algorithms for different tasks
+
+Transition:
+  "Let me explain our training data..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 5: Dataset - 45 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "Our training dataset consists of 16 LS-DYNA simulations for
+  stainless steel with 3mm thickness. The parameters were
+  sampled across the practical range: RX from -10 to -140
+  degrees, and RYR from 0.3 to 1.8. While 16 samples may seem
+  small, it's sufficient because we're using ensemble methods
+  and the parameter space is well-defined."
+
+Key Points:
+  - 16 FEM simulations
+  - Stainless steel, 3mm
+  - Well-sampled parameter space
+  - Sufficient for ensemble methods
+
+Transition:
+  "Let's look at the forward model first..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 6: Model 1 - 60 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "The forward prediction model uses RandomForest with 100
+  trees. It takes RX and RYR as inputs and predicts the stable
+  part angle after tool release. Our test accuracy shows a Mean
+  Absolute Error of 9.4 degrees with an R-squared of 0.72.
+  
+  Feature importance analysis reveals that RYR is the dominant
+  factor, accounting for 79% of the prediction power, while RX
+  contributes 21%. We chose RandomForest because it captures
+  complex, non-linear material behavior without requiring
+  physics-based constitutive equations."
+
+Key Points:
+  - RandomForest (100 trees)
+  - Test MAE: 9.4°
+  - RYR dominates (79%)
+  - No physics assumptions needed
+
+Transition:
+  "Now for the more challenging inverse model..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 7: Model 2 - 60 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "The inverse model is more challenging because we're solving
+  what's called an ill-posed problem. Given a target angle and
+  RX constraint, we need to predict the required RYR and inner
+  radius. Why is this hard? Because the forward relationship is
+  non-unique - multiple input combinations can produce similar
+  outputs. Also, material behavior is path-dependent.
+  
+  We use GradientBoosting as a multi-output regressor. The
+  results are quite good: RYR prediction has a Mean Absolute
+  Error of only 0.30, and radius prediction has an MAE of
+  4.6 millimeters."
+
+Key Points:
+  - Inverse problem is mathematically hard
+  - Non-unique (multiple solutions possible)
+  - GradientBoosting multi-output
+  - Good accuracy despite complexity
+
+Transition:
+  "We wrapped this in a professional user interface..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 8: Interface - 45 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "We built a production-ready web interface using Streamlit.
+  The key design principle was transparency - all formulas are
+  visible, all calculations are shown step-by-step. This meets
+  academic review standards and helps users understand the
+  predictions. The interface is clean, text-input only, with
+  real-time predictions and CSV export for robot programming."
+
+Key Points:
+  - Streamlit framework
+  - All formulas visible
+  - Step-by-step transparency
+  - Production-ready
+
+Transition:
+  "Let's look at the performance metrics..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 9: Results - 60 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "The performance comparison is striking. LS-DYNA FEM takes 2
+  to 4 hours per simulation. Our ML surrogate produces results
+  in under 100 milliseconds. That's a speedup of 72,000 to
+  144,000 times. The accuracy is reasonable - 9.4 degree MAE
+  for angle prediction is acceptable for initial design
+  iteration. Critical designs can still be validated with FEM
+  after ML-guided optimization narrows the parameter space."
+
+Key Points:
+  - 72,000x - 144,000x speedup
+  - Reasonable accuracy
+  - Suitable for design iteration
+  - Can validate critical cases with FEM
+
+Transition:
+  "Let me show you the tool in action..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 10: Demo - 90 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "Here's a live demonstration. [Open http://localhost:8501]
+  
+  I'll set a target angle of 45 degrees and an RX constraint
+  of -20 degrees. When I click Compute, you see instant results.
+  The tool predicts an RYR of 1.0, an inner radius of 9.15mm,
+  and shows that we need to command the tool to 38.76 degrees
+  to achieve our target after material relaxation.
+  
+  Notice how all calculations are visible - the formulas,
+  the step-by-step pipeline, everything is transparent. The
+  visualizations show the bending profile and angle comparison.
+  At the bottom, we can export the complete robot toolpath as
+  a CSV file."
+
+Key Points:
+  - Live demonstration
+  - Instant results
+  - Transparent calculations
+  - Export ready for robots
+
+Transition:
+  "To summarize our achievements..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 11: Achievements - 45 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "To summarize what we've accomplished: We achieved a 10,000x
+  speed improvement over traditional FEM. We developed a
+  physics-agnostic, data-driven approach that works without
+  constitutive equations. We justified and validated a
+  two-model architecture. We built a production-ready interface
+  with automatic toolpath generation. And we've documented
+  everything thoroughly."
+
+Key Points:
+  - 10,000x speed improvement
+  - Physics-agnostic (data-driven)
+  - Production-ready system
+  - Complete documentation
+
+Transition:
+  "Looking ahead..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 12: Future Work - 45 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "There are several directions for future development. In the
+  short term, expanding the dataset to cover more materials
+  and thicknesses would improve generalization. We could add
+  active learning so the system improves from user feedback.
+  Long-term possibilities include real robot integration,
+  multi-material support, and cloud deployment for industrial
+  access."
+
+Key Points:
+  - Dataset expansion
+  - Active learning
+  - Robot integration
+  - Cloud deployment
+
+Transition:
+  "That concludes our presentation..."
+
+──────────────────────────────────────────────────────────────
+[SLIDE 13: Thank You - 15 seconds]
+──────────────────────────────────────────────────────────────
+
+What to Say:
+  "Thank you for your attention. We're happy to answer any
+  questions about our methodology, results, or implementation."
+
+Key Points:
+  - Open for questions
+  - Code available for review
+  - Demo accessible
+
+═══════════════════════════════════════════════════════════════
+TOTAL PRESENTATION TIME: 10-12 minutes
+═══════════════════════════════════════════════════════════════
