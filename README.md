@@ -58,7 +58,7 @@ https://ml-sheet-metal-bending.streamlit.app/
 
 \- `app/` – Streamlit UI and assets
 
-\- `data/` – FEM-derived dataset as csv and all the files used to  extract the required data
+\- `data/` – FEM-derived dataset as csv and few of the results used to extract the required data
 
 \- `models/` – Trained ML surrogate models
 
@@ -72,5 +72,6 @@ https://ml-sheet-metal-bending.streamlit.app/
 
 
 All models are trained on FEM data and the full pipeline is transparent and reproducible.
+
 
 
