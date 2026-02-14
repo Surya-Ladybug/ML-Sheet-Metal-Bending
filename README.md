@@ -34,7 +34,7 @@ All results are presented as stable geometric outcomes.
 
 
 
-\## How to Run (Recommended)
+\## How to Run 
 
 
 
@@ -44,11 +44,11 @@ This application is deployed using Streamlit Cloud.
 
 👉 \*\*Launch link:\*\*  
 
-(added after deployment)
+https://ml-sheet-metal-bending.streamlit.app/
 
 
 
-No local installation required.
+(No local installation required.)
 
 
 
@@ -70,11 +70,6 @@ No local installation required.
 
 
 
-\## Academic Context
-
-
-
-This tool is designed for academic review and demonstration.
 
 All models are trained on FEM data and the full pipeline is transparent and reproducible.
 
